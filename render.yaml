@@ -1,0 +1,20 @@
+services:
+  - type: web
+    name: fastapi-app-v1
+    runtime: python
+    region: singapore
+    plan: free
+    
+    buildCommand: |
+      pip install --upgrade pip
+      pip install -r requirements.txt
+    
+    startCommand: uvicorn main:app --host 0.0.0.0 --port $PORT
+    
+    healthCheckPath: /api/healthz
+    
+    envVars:
+      - key: PYTHON_VERSION
+        value: "3.11"
+      - key: PYTHONUNBUFFERED
+        value: "1"
